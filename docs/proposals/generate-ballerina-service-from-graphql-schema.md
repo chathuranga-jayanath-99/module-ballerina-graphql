@@ -60,7 +60,7 @@ Considering a single object,
 
 | Schema.  | Ballerina Resolver. | Description.  |                            
 |-------|---------------|-------------|
-| `type Query { book: Book! } ` | `resource function get book() returns Book {}` | According to schema, return type required to be Book | 
+| <pre><code> ```graphql type Query { book: Book! } ```</code></pre> | `resource function get book() returns Book {}` | According to schema, return type required to be Book | 
 | `type Query { book: Book }` | `resource function get book() returns Book? {}` | According to schema, return type can be Book |
 
 Considering a list object,
