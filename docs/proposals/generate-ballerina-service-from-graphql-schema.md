@@ -125,6 +125,26 @@ Considering a list object,
 
 ```graphql
 type Query { 
+	books: [Book!]!
+}
+```
+
+</td>
+<td>
+
+```ballerina
+resource function get books() returns Book[] {}
+```
+
+</td>
+<td>According to schema, return type required to be a list which contains Book objects. List can be empty but list elements can’t be null</td>
+</tr>
+
+<tr>
+<td>
+
+```graphql
+type Query { 
 	books: [Book!] 
 }
 ```
