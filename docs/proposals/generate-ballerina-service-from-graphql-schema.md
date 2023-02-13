@@ -108,12 +108,6 @@ According to schema, return type can be Book
 
 </table>
 
-
-| Schema.  | Ballerina Resolver. | Description.  |                            
-|-------|---------------|-------------|
-| `type Query { book: Book! } ` | `resource function get book() returns Book {}` | According to schema, return type required to be Book | 
-| `type Query { book: Book }` | `resource function get book() returns Book? {}` | According to schema, return type can be Book |
-
 Considering a list object,
 
 <table>
@@ -183,12 +177,6 @@ resource function get books() returns Book?[]? {}
 </tr>
 
 </table>
-
-| Schema.  | Ballerina Resolver. | Description.  |  
-|-------|---------------|-------------|
-|`type Query { books: [Book!]! }` | `resource function get books() returns Book[] {}` | According to schema, return type required to be a list which contains Book objects. List can be empty but list elements can’t be null|
-|`type Query { books: [Book!] }`| `resource function get books() returns Book[]? {}` |According to schema, return type can be a list which contains Book objects or return type can be null|
-|`type Query { books: [Book] }`| `resource function get books() returns Book?[]? {}` |According to schema, return type can be a list or null. List elements can be Book objects or null|
 
 GraphQL output objects can be generated as either Ballerina record types or service types. As for the default method, all GraphQL types are generated using service types. Additionally, a flag named `–use-records-for-objects` is provided to allow for the generation of record types when there are no input arguments present in the type fields.
 
