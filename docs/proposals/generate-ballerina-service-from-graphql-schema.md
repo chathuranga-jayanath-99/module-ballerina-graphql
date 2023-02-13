@@ -1,4 +1,5 @@
 # Proposal: Generate Ballerina Service from GraphQL Schema
+
 ## Summary
 There are two approaches in creating a GraphQL service. Currently, the Ballerina GraphQL package only supports code-first approach in writing a GraphQL service, where the Schema is not needed for writing a GraphQL service. This project intends to implement the schema-first approach, where the GraphQL service is generated using a GraphQL schema.
 
@@ -31,6 +32,7 @@ type Book {
 }
 ```
 After the execution of the following command, two Ballerina files will be generated. One will contain the service template, and the other will include the types.
+
 `bal graphql -i sample.graphql -mode service`
 
 When the `mode` flag is omitted in openAPI, it generates both the client and service by default.When the `mode` flag is omitted in gRPC, it generates general files for client and service without specific files.
@@ -53,6 +55,7 @@ service /graphql on new graphql:Listener(port) {
 >**Note**: According to the query type in the schema, the resolver mapped for `books` should return a list of Book or null.
 
 The generation of types that match the GraphQL schema types is done according to the Ballerina GraphQL specifications. To illustrate this, the following is an example.
+
 Considering a single object,
 
 | Schema.  | Ballerina Resolver. | Description.  |                            
@@ -80,6 +83,7 @@ Here, service type is used because no flag is provided in the initial command.
 If the command is provided as below, record type will be generated.
 
 Command,
+
 `bal graphql -i sample.graphql -mode service –use-records-for-objects`
 
 Generated type,
@@ -97,7 +101,7 @@ An available schema parser([link](https://github.com/graphql-java/graphql-java/b
 
 Implementation is done under two phases. First phase will focus on generating service template and types from the schema. Second phase will focus on adding documentation using ballerina document comments and adding `deprecated` directive support.
 
-Here is another example, considering various different scenarios.
+Here is another example, considering different scenarios.
 Consider the schema stored in `test.graphql`,
 ```graphql 
 type Query {
@@ -148,10 +152,12 @@ enum Gender {
 	FEMALE
 }
 ```
-Execute the following command
+Execute the following command,
+
 `bal graphql -i test.graphql -mode service`
 
 Generated files are as below,
+
 `service.bal`
 ```ballerina
 import ballerina/graphql;
@@ -167,7 +173,8 @@ service /graphql on new graphql:Listener(port) {
 	resource function subscribe titles() returns stream<string> {}
 }
 ```
-types.bal
+
+`types.bal`
 ```ballerina
 service class Book {
 	resource function get title() returns string {}
@@ -202,7 +209,6 @@ enum Gender {
 	FEMALE
 }
 ```
-
 ## Alternatives
 -   During the generation of a GraphQL service, a default value for the port number is set, but it can also be initialized using a flag. Adding a flag can over complicate the process, because of that configuration variable is used to keep the port number.
     
