@@ -58,9 +58,39 @@ The generation of types that match the GraphQL schema types is done according to
 
 Considering a single object,
 
+<table>
+<tr>
+<th> Schema </th> <th> Ballerina Resolver </th> <th> Description </th>
+</tr>
+<tr>
+<td>
+
+```graphql
+type Query { 
+	book: Book! 
+} 
+```
+
+</td>
+<td>
+
+```ballerina
+resource function get book() returns Book {}
+```
+
+</td>
+<td>
+According to schema, return type required to be Book
+</td>
+</tr>
+
+
+</table>
+
+
 | Schema.  | Ballerina Resolver. | Description.  |                            
 |-------|---------------|-------------|
-| <pre><code> ```graphql type Query { book: Book! } ```</code></pre> | `resource function get book() returns Book {}` | According to schema, return type required to be Book | 
+| `type Query { book: Book! } ` | `resource function get book() returns Book {}` | According to schema, return type required to be Book | 
 | `type Query { book: Book }` | `resource function get book() returns Book? {}` | According to schema, return type can be Book |
 
 Considering a list object,
