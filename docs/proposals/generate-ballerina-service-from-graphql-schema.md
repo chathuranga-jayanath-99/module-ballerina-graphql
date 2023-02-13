@@ -84,6 +84,27 @@ According to schema, return type required to be Book
 </td>
 </tr>
 
+<tr>
+<td>
+
+```graphql
+type Query { 
+	book: Book
+}
+```
+
+</td>
+<td>
+
+```ballerina
+resource function get book() returns Book? {}
+```
+
+</td>
+<td>
+According to schema, return type can be Book
+</td>
+</tr>
 
 </table>
 
@@ -94,6 +115,55 @@ According to schema, return type required to be Book
 | `type Query { book: Book }` | `resource function get book() returns Book? {}` | According to schema, return type can be Book |
 
 Considering a list object,
+
+<table>
+<tr>
+<th>Schema</th><th>Ballerina Resolver</th><th>Description</th>
+</tr>
+<tr>
+<td>
+
+```graphql
+type Query { 
+	books: [Book!] 
+}
+```
+
+</td>
+<td>
+
+```ballerina
+resource function get books() returns Book[]? {}
+```
+
+</td>
+<td>According to schema, return type can be a list which contains Book objects or return type can be null</td>
+
+</tr>
+
+<tr>
+<td>
+
+```graphql
+type Query { 
+	books: [Book] 
+}
+```
+
+</td>
+<td>
+
+```ballerina
+resource function get books() returns Book?[]? {}
+```
+
+</td>
+<td>According to schema, return type can be a list or null. List elements can be Book objects or null</td>
+
+</tr>
+
+</table>
+
 | Schema.  | Ballerina Resolver. | Description.  |  
 |-------|---------------|-------------|
 |`type Query { books: [Book!]! }` | `resource function get books() returns Book[] {}` | According to schema, return type required to be a list which contains Book objects. List can be empty but list elements can’t be null|
