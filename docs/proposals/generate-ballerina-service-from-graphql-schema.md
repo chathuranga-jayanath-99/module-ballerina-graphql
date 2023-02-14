@@ -197,8 +197,8 @@ Command,
 Generated type,
 ```ballerina
 type Book record {
-    string title;
-    int bookId;
+	string title;
+	int bookId;
 }
 ```
 If the ID type is present in the GraphQL schema, it is considered as a string in the type generation. The reasons are as follows,
@@ -213,9 +213,9 @@ Here is another example, considering different scenarios.
 Consider the schema stored in `test.graphql`,
 ```graphql 
 type Query {
-    book(id: Int!): Book
-    books: [Book!]
-    profiles: [Profile!]
+	book(id: Int!): Book
+	books: [Book!]
+	profiles: [Profile!]
 }
 
 type Mutation {
