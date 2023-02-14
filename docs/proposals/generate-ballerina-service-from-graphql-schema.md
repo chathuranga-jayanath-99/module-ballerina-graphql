@@ -22,13 +22,13 @@ Consider the following GraphQL schema in the `sample.graphql` file.
 
 ```graphql
 type Query {
-	book(bookId: Int!): Book
-	books: [Book!]
+    book(bookId: Int!): Book
+    books: [Book!]
 }
 
 type Book {
-	title: String!
-	bookId: Int!
+    title: String!
+    bookId: Int!
 }
 ```
 After the execution of the following command, two Ballerina files will be generated. One will contain the service template, and the other will include the types.
@@ -48,8 +48,8 @@ import ballerina/graphql;
 configurable int port = 9090;
 
 service /graphql on new graphql:Listener(port) {
-	resource function get book(string id) returns Book? {}
-	resource function get books() returns Book[]? {}
+    resource function get book(string id) returns Book? {}
+    resource function get books() returns Book[]? {}
 }
 ```
 >**Note**: According to the query type in the schema, the resolver mapped for `books` should return a list of Book or null.
@@ -67,7 +67,7 @@ Considering a single object,
 
 ```graphql
 type Query { 
-	book: Book! 
+    book: Book! 
 } 
 ```
 
@@ -89,7 +89,7 @@ According to schema, return type required to be Book
 
 ```graphql
 type Query { 
-	book: Book
+    book: Book
 }
 ```
 
@@ -119,7 +119,7 @@ Considering a list object,
 
 ```graphql
 type Query { 
-	books: [Book!]!
+    books: [Book!]!
 }
 ```
 
@@ -139,7 +139,7 @@ resource function get books() returns Book[] {}
 
 ```graphql
 type Query { 
-	books: [Book!] 
+    books: [Book!] 
 }
 ```
 
@@ -160,7 +160,7 @@ resource function get books() returns Book[]? {}
 
 ```graphql
 type Query { 
-	books: [Book] 
+    books: [Book] 
 }
 ```
 
@@ -183,8 +183,8 @@ GraphQL output objects can be generated as either Ballerina record types or serv
 According to this approach, types of the above example will be generated as below.
 ```ballerina 
 service class Book {
-	resource function get title() returns string {}
-	resource function get bookId() returns int {}
+    resource function get title() returns string {}
+    resource function get bookId() returns int {}
 }
 ```
 Here, service type is used because no flag is provided in the initial command.
@@ -197,8 +197,8 @@ Command,
 Generated type,
 ```ballerina
 type Book record {
-	string title;
-	int bookId;
+    string title;
+    int bookId;
 }
 ```
 If the ID type is present in the GraphQL schema, it is considered as a string in the type generation. The reasons are as follows,
@@ -213,51 +213,51 @@ Here is another example, considering different scenarios.
 Consider the schema stored in `test.graphql`,
 ```graphql 
 type Query {
-	book(id: Int!): Book
-	books: [Book!]
-	profiles: [Profile!]
+    book(id: Int!): Book
+    books: [Book!]
+    profiles: [Profile!]
 }
 
 type Mutation {
-	addBook(
-		id: Int
-		title: String!
-	): Book!
+    addBook(
+        id: Int
+        title: String!
+    ): Book!
 }
 
 type Subscription {
-	bookTitles: String!
+    bookTitles: String!
 }
 
 interface Info {
-	name: String!	
+    name: String!
 }
 
 type Book {
-	title: String!
-	id: Int!
+    title: String!
+    id: Int!
 }
 
 input BookInfo {
-	id: Int!
-	title: String!
+    id: Int!
+    title: String!
 }
 
 type Teacher implements Info {
-	name: String!
-	subject: String!
+    name: String!
+    subject: String!
 }
 
 type Student implements Info {
-	name: String!
-	gpa: Float!
+    name: String!
+    gpa: Float!
 }
 
 union Profile = Teacher | Student
 
 enum Gender {
-	MALE
-	FEMALE
+    MALE
+    FEMALE
 }
 ```
 Execute the following command,
@@ -273,48 +273,48 @@ import ballerina/graphql;
 configurable int port = 9090;
 
 service /graphql on new graphql:Listener(port) {
-	resource function get book(string id) returns Book? {}
-	resource function get books() returns Book[]? {}
-	resource function get profiles() returns Profile[]? {}
-	remote function addBook(string title, int? bookId) returns Book {}
-	remote function addBookWithInfo(BookInfo bookInfo) returns Book? {}
-	resource function subscribe titles() returns stream<string> {}
+    resource function get book(string id) returns Book? {}
+    resource function get books() returns Book[]? {}
+    resource function get profiles() returns Profile[]? {}
+    remote function addBook(string title, int? bookId) returns Book {}
+    remote function addBookWithInfo(BookInfo bookInfo) returns Book? {}
+    resource function subscribe titles() returns stream<string> {}
 }
 ```
 
 `types.bal`
 ```ballerina
 service class Book {
-	resource function get title() returns string {}
-	resource function get bookId() returns int {}
+    resource function get title() returns string {}
+    resource function get bookId() returns int {}
 }
 
 type BookInfo record {|
-	int id;
-	string title;
+    int id;
+    string title;
 |};
 
 type Info distinct service object {
-	resource function get name() returns string;
+    resource function get name() returns string;
 };
 
 distinct service class Teacher {
-	*Info;
-	resource function get name() returns string {}
-	resource function get subject() returns string {}
+    *Info;
+    resource function get name() returns string {}
+    resource function get subject() returns string {}
 }
 
 distinct service class Student {
-	*Info;
-	resource function get name() returns string {}
-	resource function get gpa() returns float {}
+    *Info;
+    resource function get name() returns string {}
+    resource function get gpa() returns float {}
 }
 
 type Profile Teacher|Student;
 
 enum Gender {
-	MALE,
-	FEMALE
+    MALE,
+    FEMALE
 }
 ```
 ## Alternatives
