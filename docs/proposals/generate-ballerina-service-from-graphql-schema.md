@@ -22,9 +22,9 @@ Ballerina commands supported in the Ballerina GraphQL tool are as follows.
 bal graphql [-i | –-input] <graphql-schema-file-path/config-file-path/service-file-path>
             [-o | –-output] <output-location>
             [--mode] <mode-type>
-	        [-h | --help]
-	        [-s | --service] <base-service-path>
-	        [–-use-records-for-objects] 
+            [-h | --help]
+            [-s | --service] <base-service-path>
+            [–-use-records-for-objects] 
 ```
 
 The command-line arguments below can be used with the command for each particular purpose as described below.
@@ -106,14 +106,14 @@ GraphQL schema should be stored in a .graphql file. Following is an example usag
 Consider the following GraphQL schema in the `customer-api.graphql` file.
 
 ```graphql
-    type Query {
-        book(bookId: Int!): Book 
-        books: [Book!] 
-    }
-    type Book {
-        title: String! 
-        bookId: Int! 
-    }
+type Query {
+    book(bookId: Int!): Book 
+    books: [Book!] 
+}
+type Book {
+    title: String! 
+    bookId: Int! 
+}
 ```
 
 After the execution of the following command, two Ballerina files will be generated. One will contain the service template(`service.bal`), and the other will include the types(`types.bal`). 
@@ -131,10 +131,10 @@ According to the above example, the service object type will appear as below.
 
 ```ballerina
 type CustomerApi service object {
-	*graphql:Service 
-	
-	resource function get book(string id) returns Book?;
-	resource function get books() returns Book[]?;
+    *graphql:Service 
+
+    resource function get book(string id) returns Book?;
+    resource function get books() returns Book[]?;
 }
 ```
 >**Note**: Service type name is taken from the name of the .graphql file which contains the GraphQL schema.
