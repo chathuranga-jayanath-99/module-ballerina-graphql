@@ -354,8 +354,8 @@ Consider the schema stored in `test-api.graphql`,
 
 ```graphql 
 type Query {
-	book(id: Int!): Book
-	books: [Book!]
+    book(id: Int!): Book
+    books: [Book!]
     profiles: [Profile!]
 }
 type Mutation {
