@@ -110,6 +110,7 @@ type Query {
     book(bookId: Int!): Book 
     books: [Book!] 
 }
+
 type Book {
     title: String! 
     bookId: Int! 
@@ -303,8 +304,8 @@ Generated type,
 
 ```ballerina
 type Book record {
-	string title;
-	int bookId;
+    string title;
+    int bookId;
 }
 ```
 
@@ -312,21 +313,21 @@ Any field in the `Book` object type doesn’t take input arguments. Therefore, t
 
 Generated `types.bal`
     
-    ```ballerina
-    import ballerina/graphql;
+```ballerina
+import ballerina/graphql;
 
-    type CustomerApi service object {
-        *graphql:Service;
+type CustomerApi service object {
+    *graphql:Service;
 
-        resource function get book(string id) returns Book?;
-        resource function get books() returns Book[]?;
-    };
+    resource function get book(string id) returns Book?;
+    resource function get books() returns Book[]?;
+};
 
-    type Book record {
-        string title;
-        int bookId;
-    };
-    ```
+type Book record {
+    string title;
+    int bookId;
+};
+```
 
 ### The `service.bal` file.
 This file will contain the GraphQL service implementation. After the execution of the GraphQL service generation command, this file will look like below.
@@ -355,40 +356,40 @@ Consider the schema stored in `test-api.graphql`,
 type Query {
 	book(id: Int!): Book
 	books: [Book!]
-profiles: [Profile!]
+    profiles: [Profile!]
 }
 type Mutation {
-addBook(
-id: Int
-title: String!
-): Book!
+    addBook(
+        id: Int
+        title: String!
+    ): Book!
 }
 type Subscription {
-	bookTitles: String!
+    bookTitles: String!
 }
 interface Info {
-	name: String!
+    name: String!
 }
 type Book {
-	title: String!
-	id: Int!
+    title: String!
+    id: Int!
 }
 input BookInfo {
-	id: Int!
-	title: String!
+    id: Int!
+    title: String!
 }
 type Teacher implements Info {
-	name: String!
-subject: String!
+    name: String!
+    subject: String!
 }
 type Student implements Info {
-	name: String!
-	gpa: Float!
+    name: String!
+    gpa: Float!
 }
 union Profile = Teacher | Student
 enum Gender {
-	MALE
-	FEMALE
+    MALE
+    FEMALE
 }
 ```
 
@@ -417,14 +418,14 @@ service TestApi on new graphql:Listener(port) {
 import ballerina/graphql;
 
 type TestApi service object {
-	*graphql:Service;
+    *graphql:Service;
 
-	resource function get book(string id) returns Book?;
-	resource function get books() returns Book[]?;
-	resource function get profiles() returns Profile[]?;
-	remote function addBook(string title, int? bookId) returns Book;
-	remote function addBookWithInfo(BookInfo bookInfo) returns Book?;
-	resource function subscribe titles() returns stream<string>;
+    resource function get book(string id) returns Book?;
+    resource function get books() returns Book[]?;
+    resource function get profiles() returns Profile[]?;
+    remote function addBook(string title, int? bookId) returns Book;
+    remote function addBookWithInfo(BookInfo bookInfo) returns Book?;
+    resource function subscribe titles() returns stream<string>;
 };
 
 service class Book {
